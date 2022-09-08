@@ -41,12 +41,12 @@ public class LevelGenerator : MonoBehaviour
         int wallI = 0;
         for (int x = 0; x < width; x++)
         {
-            if (x == 0) {
-                g.walls[wallI] = new WallBuilder(g);
-                wallI++;
-            }
             for (int y = 0; y < width; y++)
             {
+                if (x == 0) {
+                    g.walls[wallI] = new WallBuilder(g);
+                    wallI++;
+                }
                 if (y == 0) {
                     g.walls[wallI] = new WallBuilder(g);
                     wallI++;
