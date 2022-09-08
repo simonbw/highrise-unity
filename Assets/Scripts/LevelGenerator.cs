@@ -62,7 +62,8 @@ public class LevelGenerator : MonoBehaviour
         Debug.Assert(wallI == nWalls);
 
 
-        Instantiate(wallPrefab);
+        Instantiate(wallPrefab, new Vector3(5.0f, 5.0f, 0f), Quaternion.identity);
+        Instantiate(wallPrefab, new Vector3(5.0f, -5.0f, 0f), Quaternion.identity);
 
     }
 
