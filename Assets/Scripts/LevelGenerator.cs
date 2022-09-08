@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CellBuilder
 {
     public GridBuilder g;
@@ -29,6 +28,8 @@ public class GridBuilder
 
 public class LevelGenerator : MonoBehaviour
 {
+    public GameObject wallPrefab;
+
     void Start()
     {
         int width = 10;
@@ -61,7 +62,7 @@ public class LevelGenerator : MonoBehaviour
         Debug.Assert(wallI == nWalls);
 
 
-
+        Instantiate(wallPrefab);
 
     }
 
