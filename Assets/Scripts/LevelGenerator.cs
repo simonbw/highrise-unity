@@ -65,7 +65,7 @@ public class WallBuilder
 
     public Quaternion getRotation() { 
         return Quaternion.FromToRotation(
-            RenameMe.DirectionToV[Direction.UP],
+            RenameMe.DirectionToV[Direction.RIGHT],
             directionFromCellV
         );;
     }
