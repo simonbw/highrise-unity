@@ -1,0 +1,33 @@
+########
+# TODO #
+########
+
+
+Systems to get in place
+———————————————————————
+
+Player
+ - Movement
+ - Animations
+ - Guns
+ - Sounds
+
+Bullets
+ - Collisions
+
+Zombies
+ - 
+
+Environment
+ - Backgrounds
+ - Walls
+ - Other Objects
+
+Graphics
+ - Lighting
+ - Vision System
+
+
+UI
+ - Main Menu
+ - Pause
