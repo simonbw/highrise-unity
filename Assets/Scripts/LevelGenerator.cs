@@ -11,12 +11,63 @@ public class CellBuilder
     }
 }
 
+public enum Direction {
+    RIGHT,
+    DOWN,
+    LEFT,
+    UP,
+    RIGHTUP,
+    RIGHTDOWN,
+    LEFTUP,
+    LEFTDOWN,
+}
+
+public class RenameMe {
+    private static readonly Dictionary<Direction, Vector2> _directionToV = new Dictionary<Direction, Vector2>
+    {
+        {Direction.RIGHT, new Vector2(1f, 0f)},
+        {Direction.DOWN, new Vector2(0f, 1f)},
+        {Direction.LEFT, new Vector2(-1f, 0f)},
+        {Direction.UP, new Vector2(0f, -1f)},
+        {Direction.RIGHTUP, new Vector2(1f, -1f)},
+        {Direction.RIGHTDOWN, new Vector2(1f, 1f)},
+        {Direction.LEFTUP, new Vector2(-1f, -1f)},
+        {Direction.LEFTDOWN, new Vector2(-1f, 1f)}
+    };
+
+    public static Dictionary<Direction, Vector2> DirectionToV
+    {
+        get
+        {
+            return _directionToV;
+        }
+    }
+}
+
 public class WallBuilder
 {
     public GridBuilder g;
-    public WallBuilder(GridBuilder g)
+    Vector2 cellLevelCoords;
+    Direction directionFromCell;
+    Vector2 directionFromCellV;
+
+    public WallBuilder(GridBuilder g, Vector2 cellLevelCoords, Direction directionFromCell)
     {
         this.g = g;
+        this.cellLevelCoords = cellLevelCoords;
+        this.directionFromCell = directionFromCell;
+        this.directionFromCellV = RenameMe.DirectionToV[directionFromCell];
+    }
+
+    public Vector2 getWorldCoords() { 
+        return cellLevelCoords * 2 + directionFromCellV;
+    }
+
+    public Quaternion getRotation() { 
+        return Quaternion.FromToRotation(
+            RenameMe.DirectionToV[Direction.UP],
+            directionFromCellV
+        );;
     }
 }
 
@@ -44,26 +95,26 @@ public class LevelGenerator : MonoBehaviour
             for (int y = 0; y < width; y++)
             {
                 if (x == 0) {
-                    g.walls[wallI] = new WallBuilder(g);
+                    g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.LEFT);
                     wallI++;
                 }
                 if (y == 0) {
-                    g.walls[wallI] = new WallBuilder(g);
+                    g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.UP);
                     wallI++;
                 }
                 g.cells[x, y] = new CellBuilder(g);
-                g.walls[wallI] = new WallBuilder(g);
+                g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.RIGHT);
                 wallI++;
-                g.walls[wallI] = new WallBuilder(g);
+                g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.DOWN);
                 wallI++;
             }
         }
         // Expect exactly nWalls to have been created
         Debug.Assert(wallI == nWalls);
 
-
-        Instantiate(wallPrefab, new Vector3(5.0f, 5.0f, 0f), Quaternion.identity);
-        Instantiate(wallPrefab, new Vector3(5.0f, -5.0f, 0f), Quaternion.identity);
+        foreach (WallBuilder w in g.walls) {
+            Instantiate(wallPrefab, w.getWorldCoords() + new Vector2(5f, 5f), w.getRotation());
+        }
 
     }
 
