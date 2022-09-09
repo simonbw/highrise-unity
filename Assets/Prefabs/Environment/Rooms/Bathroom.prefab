@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 661194895980803866}
   - component: {fileID: 7175257889118149910}
   m_Layer: 0
-  m_Name: BathroomTemplate
+  m_Name: Bathroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
