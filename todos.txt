@@ -14,9 +14,14 @@ Player
 
 Bullets
  - Collisions
+ - Particle effects
 
 Zombies
- - 
+ - Animation
+ - AI
+ - Attacking
+ - Taking damage
+ - Sounds
 
 Environment
  - Backgrounds
@@ -26,6 +31,11 @@ Environment
 Graphics
  - Lighting
  - Vision System
+
+Effects
+ - Muzzle flash
+ - Bullet impact
+ - Blood splatter
 
 UI
  - Main Menu

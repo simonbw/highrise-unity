@@ -177,10 +177,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1348057137580731180}
-  - component: {fileID: 1348057137580731183}
   - component: {fileID: 1348057137580731182}
   - component: {fileID: 1348057137580731181}
   - component: {fileID: 8942794731239625182}
+  - component: {fileID: -7363915870404328462}
+  - component: {fileID: 4578597899646333180}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -209,22 +210,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &1348057137580731183
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348057137580731171}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0010427162, y: 0}
-  m_Size: {x: 0.13497482, y: 0.16}
-  m_Direction: 0
 --- !u!50 &1348057137580731182
 Rigidbody2D:
   serializedVersion: 4
@@ -239,13 +224,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.1
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &1348057137580731181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,8 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48c9b8a2a21e425e987997caf7b5bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  body: {fileID: 1348057137580731182}
 --- !u!114 &8942794731239625182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,8 +263,46 @@ MonoBehaviour:
   leftHand: {fileID: 1230802982926677615}
   leftHandPosition: {x: 0.5, y: 0.2}
   rightHandPosition: {x: 0.5, y: -0.2}
-  leftShoulderPosition: {x: 0, y: 0.38}
-  rightShoulderPosition: {x: 0, y: -0.38}
+  leftShoulderBase: {x: 0, y: 0.38}
+  rightShoulderBase: {x: 0, y: -0.38}
+  stanceOffset: {x: 0, y: 0}
+  stanceAngle: 0
+  headAngle: 0
+  leftArmSize: 0.7
+  rightArmSize: 0.7
+--- !u!114 &-7363915870404328462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348057137580731171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2095ee9a0d47437bacb746a96c6ea10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 4
+  acceleration: 10
+  body: {fileID: 1348057137580731182}
+--- !u!114 &4578597899646333180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348057137580731171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2220208072914a9488a7c3284bd8291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 0.1
+  accelExp: 1.1
+  dampingFactor: 0.02
+  dampingExp: 0.9
+  body: {fileID: 1348057137580731182}
+  targetAngle: 0
 --- !u!1 &1385977622660342864
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 123441277672838386}
   - component: {fileID: 7953957710897985053}
+  - component: {fileID: 8838214473473688822}
   m_Layer: 0
   m_Name: Torso
   m_TagString: Untagged
@@ -366,6 +388,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &8838214473473688822
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385977622660342864}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0010427237, y: -0.010653079}
+  m_Size: {x: 0.4332615, y: 1.0511411}
+  m_Direction: 0
 --- !u!1 &3071647789420289070
 GameObject:
   m_ObjectHideFlags: 0

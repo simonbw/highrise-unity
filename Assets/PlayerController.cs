@@ -5,27 +5,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-  // Speed of movement
-  public float moveSpeed = 5f;
-
-  public Rigidbody2D body;
-
-  // public GameObject head;
-  // public GameObject torso;
-  // public GameObject rightArm;
-  // public GameObject leftArm;
-  // public GameObject rightHand;
-  // public GameObject leftHand;
-
   void FixedUpdate()
   {
+    Rigidbody2D body = GetComponent<Rigidbody2D>();
+
     // TODO: Use physics to set velocity, not just setting it directly
-    Vector2 moveDirection = new Vector2((float)Input.GetAxisRaw("Horizontal"), (float)Input.GetAxisRaw("Vertical"));
-    body.velocity = moveDirection * moveSpeed;
+    Vector2 moveDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    WalkController walkController = GetComponent<WalkController>();
+    walkController.WalkTowards(Vector2.SignedAngle(Vector2.right, moveDirection), Mathf.Clamp01(moveDirection.magnitude));
 
     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    Vector2 aimDirection = mousePosition - body.position;
-    body.rotation = Vector2.SignedAngle(Vector2.right, aimDirection);
+    AimController aimController = GetComponent<AimController>();
+    aimController.targetAngle = Vector2.SignedAngle(Vector2.right, mousePosition - body.position);
+
+    HumanoidSpriteController humanoidSpriteController = GetComponent<HumanoidSpriteController>();
+    humanoidSpriteController.headAngle = aimController.targetAngle - body.rotation;
   }
 
 

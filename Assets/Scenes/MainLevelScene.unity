@@ -327,5 +327,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4578597899646333180, guid: ffab095e0c55a44abaf6ee974ae07ccf, type: 3}
+      propertyPath: damping
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578597899646333180, guid: ffab095e0c55a44abaf6ee974ae07ccf, type: 3}
+      propertyPath: stiffness
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffab095e0c55a44abaf6ee974ae07ccf, type: 3}
