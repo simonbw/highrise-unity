@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,15 +9,16 @@ public class PlayerController : MonoBehaviour
 
     // TODO: Use physics to set velocity, not just setting it directly
     Vector2 moveDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    WalkController walkController = GetComponent<WalkController>();
-    walkController.WalkTowards(Vector2.SignedAngle(Vector2.right, moveDirection), Mathf.Clamp01(moveDirection.magnitude));
+    float angle = Vector2.SignedAngle(Vector2.right, moveDirection);
+    float speedPercent = Mathf.Clamp01(moveDirection.magnitude);
+    GetComponent<WalkController>().WalkTowards(angle, speedPercent);
 
     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    AimController aimController = GetComponent<AimController>();
-    aimController.targetAngle = Vector2.SignedAngle(Vector2.right, mousePosition - body.position);
+    float targetAngle = Vector2.SignedAngle(Vector2.right, mousePosition - body.position);
+    float headAngle = Mathf.Clamp(targetAngle - body.rotation, -90f, 90f);
 
-    HumanoidSpriteController humanoidSpriteController = GetComponent<HumanoidSpriteController>();
-    humanoidSpriteController.headAngle = aimController.targetAngle - body.rotation;
+    GetComponent<AimController>().targetAngle = targetAngle;
+    GetComponent<BodyPoser>().headAngle = headAngle;
   }
 
 

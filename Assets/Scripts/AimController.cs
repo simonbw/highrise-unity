@@ -1,30 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AimController : MonoBehaviour
 {
-  public float acceleration = 0.01f;
-  public float accelExp = 0.9f;
-  public float dampingFactor = 0.01f;
-  public float dampingExp = 0.9f;
+  [Header("Paramters")]
+  public float maxRotationSpeed = 1440f; // degrees per second
+  public float rotationLerpAmount = 0.9f;
 
+  [Header("References")]
   public Rigidbody2D body;
+
+  [Header("Dynamic")]
   public float targetAngle = 0f;
 
   // Update is called once per frame
-  void Update()
+  void FixedUpdate()
   {
-    float angleDisplacement = Mathf.DeltaAngle(body.rotation, targetAngle);
-    float dampingTorque = dampingFactor * -Mathf.Sign(body.angularVelocity) * Mathf.Pow(Mathf.Abs(body.angularVelocity), dampingExp);
-    float aimingTorque = acceleration * Mathf.Sign(angleDisplacement) * Mathf.Pow(Mathf.Abs(angleDisplacement), accelExp);
-    float torque = aimingTorque + dampingTorque;
-    body.AddTorque(torque);
-  }
-
-  // Return the difference between two angles
-  float AngleDelta(float a, float b)
-  {
-    return ((b - a + 180) % 360) - 180;
+    body.MoveRotation(Mathf.MoveTowardsAngle(
+      current: body.rotation,
+      target: Mathf.LerpAngle(body.rotation, targetAngle, rotationLerpAmount),
+      maxDelta: maxRotationSpeed * Time.fixedDeltaTime));
   }
 }

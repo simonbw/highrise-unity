@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanoidSpriteController : MonoBehaviour
+public class BodyPoser : MonoBehaviour
 {
 
   // References

@@ -297,10 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2220208072914a9488a7c3284bd8291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0.1
-  accelExp: 1.1
-  dampingFactor: 0.02
-  dampingExp: 0.9
+  maxRotationSpeed: 1440
+  rotationLerpAmount: 0.9
   body: {fileID: 1348057137580731182}
   targetAngle: 0
 --- !u!1 &1385977622660342864
