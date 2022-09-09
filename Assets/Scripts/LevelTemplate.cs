@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public struct RoomConfiguration {
@@ -15,48 +16,95 @@ public class LevelTemplate : MonoBehaviour
     void initGrid()
     {
         int width = 10;
-        this.g = new GridBuilder();
-        g.cells = new CellBuilder[width, width];
-        int nWalls = 2 * width * width + 2 * width;
-        g.walls = new WallBuilder[nWalls];
-
-        int wallI = 0;
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < width; y++)
-            {
-                if (x == 0) {
-                    g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.LEFT);
-                    g.walls[wallI].removable = false;
-                    wallI++;
-                }
-                if (y == 0) {
-                    g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.UP);
-                    g.walls[wallI].removable = false;
-                    wallI++;
-                }
-                g.cells[x, y] = new CellBuilder(g);
-                g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.RIGHT);
-                if (x == width - 1) {
-                    g.walls[wallI].removable = false;
-                }
-                wallI++;
-                g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.DOWN);
-                if (y == width - 1) {
-                    g.walls[wallI].removable = false;
-                }
-                wallI++;
-            }
-        }
-        // Expect exactly nWalls to have been created
-        Debug.Assert(wallI == nWalls);
+        this.g = new GridBuilder(new Vector2Int(width, width));
     }
 
     void generateLevel() {
         initGrid();
 
-        
+        // TODO
+        Vector2Int [] roomPositions = {new Vector2Int(0, 0)};
 
+        foreach (GameObject rRaw in roomTemplates) {
+            foreach (Vector2Int roomPos in roomPositions) {
+                RoomTemplate r = rRaw.GetComponent(typeof(RoomTemplate)) as RoomTemplate;
+                if (r == null) {
+                    Debug.LogWarning("expected only RoomTemplate components");
+                    continue;
+                }
+
+                Vector2Int dimensions = (Vector2Int) r.getDimensions();
+                List<WallBuilder> doorBuilders = r.doors
+                    .Select(d => d.transform.position)
+                    .Select(roomCoords => ((Vector2) roomPos) + ((Vector2) roomCoords))
+                    .Select(levelCoords => g.wallPositionToBuilder(levelCoords))
+                    .ToList();
+                if (doorBuilders.Any(d => d == null || d.structural))
+                {
+                    Debug.Log("Ineligible: Door would destroy structural wall");
+                    // Ineligible: Door would destroy structural wall
+                    continue;
+                }
+
+                // TODO make this a yieldy iEnumerable in the room script
+                for (int roomX = 0; roomX < dimensions.x; roomX++)
+                {
+                    for (int roomY = 0; roomY < dimensions.y; roomY++)
+                    {
+                        Vector2Int roomCoords = new Vector2Int(roomX, roomY);
+                        Vector2Int levelCoords = roomCoords + roomPos;
+                        CellBuilder c = g.cells[levelCoords.x, levelCoords.y];
+                        bool topRow = roomY == dimensions.y - 1;
+                        bool rightColumn = roomX == dimensions.x - 1;
+                        if (c.right.structural && !rightColumn || c.up.structural && !topRow)
+                        {
+                            Debug.Log("Ineligible: Room internals would destroy structural wall");
+                            // Ineligible: Room internals would destroy structural wall
+                            continue;
+                        }
+                    }
+                }
+
+                Debug.Log("Found eligible room placement");
+                for (int roomX = 0; roomX < dimensions.x; roomX++)
+                {
+                    for (int roomY = 0; roomY < dimensions.y; roomY++)
+                    {
+                        Vector2Int roomCoords = new Vector2Int(roomX, roomY);
+                        Vector2Int levelCoords = roomCoords + roomPos;
+                        CellBuilder c = g.cells[levelCoords.x, levelCoords.y];
+                        bool bottomRow = roomY == 0;
+                        bool leftColumn = roomX == 0;
+                        bool topRow = roomY == dimensions.y - 1;
+                        bool rightColumn = roomX == dimensions.x - 1;
+                        if (rightColumn)
+                        {
+                            c.right.structural = true;
+                        } else {
+                            c.right.exists = false;
+                        }
+                        if (topRow)
+                        {
+                            c.up.structural = true;
+                        } else {
+                            c.up.exists = false;
+                        }
+                        if (bottomRow)
+                        {
+                            c.down.structural = true;
+                        }
+                        if (leftColumn)
+                        {
+                            c.left.structural = true;
+                        }
+                    }
+                }
+
+                Instantiate(rRaw, ((Vector2) roomPos), Quaternion.identity, transform);
+
+                break;
+            }
+        }
     }
 
     void instantiateEntities()
@@ -65,7 +113,7 @@ public class LevelTemplate : MonoBehaviour
             if (!w.exists) {
                 continue;
             }
-            Instantiate(wall, w.getWorldCoords() + new Vector2(5f, 5f), w.getRotation(), transform);
+            Instantiate(wall, w.getWorldCoords(), w.getRotation(), transform);
         }
     }
 
