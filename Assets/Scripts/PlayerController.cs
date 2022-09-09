@@ -3,11 +3,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+  public GunScript gun = null;
+
+  void Update()
+  {
+    // TODO: Is this the best way to be checking input?
+    if (Input.GetMouseButtonDown(0) && gun != null)
+    {
+      gun.Fire();
+    }
+  }
+
   void FixedUpdate()
   {
     Rigidbody2D body = GetComponent<Rigidbody2D>();
 
-    // TODO: Use physics to set velocity, not just setting it directly
     Vector2 moveDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     float angle = Vector2.SignedAngle(Vector2.right, moveDirection);
     float speedPercent = Mathf.Clamp01(moveDirection.magnitude);
