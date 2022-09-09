@@ -22,16 +22,24 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (x == 0) {
                     g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.LEFT);
+                    g.walls[wallI].removable = false;
                     wallI++;
                 }
                 if (y == 0) {
                     g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.UP);
+                    g.walls[wallI].removable = false;
                     wallI++;
                 }
                 g.cells[x, y] = new CellBuilder(g);
                 g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.RIGHT);
+                if (x == width - 1) {
+                    g.walls[wallI].removable = false;
+                }
                 wallI++;
                 g.walls[wallI] = new WallBuilder(g, new Vector2(x, y), Direction.DOWN);
+                if (y == width - 1) {
+                    g.walls[wallI].removable = false;
+                }
                 wallI++;
             }
         }
@@ -49,9 +57,9 @@ public class LevelGenerator : MonoBehaviour
     void instantiateEntities()
     {
         foreach (WallBuilder w in g.walls) {
-            // if (!w.exists) {
-            //     continue;
-            // }
+            if (!w.exists) {
+                continue;
+            }
             Instantiate(wallPrefab, w.getWorldCoords() + new Vector2(5f, 5f), w.getRotation());
         }
     }

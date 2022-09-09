@@ -51,10 +51,10 @@ public class WallBuilder
     Direction directionFromCell;
     Vector2 directionFromCellV;
 
-    // bool exists = true;
+    public bool exists = true;
     //indicates that this wall is not an important part of the level structure and can
         // be removed during maze generation
-    // bool removable = true;
+    public bool removable = true;
 
     public WallBuilder(GridBuilder g, Vector2 cellLevelCoords, Direction directionFromCell)
     {
