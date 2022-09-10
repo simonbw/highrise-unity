@@ -15,7 +15,7 @@ public class LevelTemplate : MonoBehaviour
 
     void initGrid()
     {
-        int width = 7;
+        int width = 9;
         this.g = new GridBuilder(new Vector2Int(width, width));
     }
 
@@ -41,18 +41,15 @@ public class LevelTemplate : MonoBehaviour
                     .Select(levelCoords => g.wallPositionToBuilder(levelCoords))
                     .Any(w => w == null || w.structural))
                 {
-                    Debug.Log("Ineligible: Door would destroy structural wall");
                     // Ineligible: Door would destroy structural wall
                     continue;
                 }
 
                 if (g.traverseInteriorWalls(roomPos, dimensions).Any(w => w.structural)) {
-                    Debug.Log("Ineligible: Room internals would destroy structural wall");
                     // Ineligible: Room internals would destroy structural wall
                     continue;
                 }
 
-                Debug.Log("Found eligible room placement");
                 foreach (WallBuilder w in g.traverseExteriorWalls(roomPos, dimensions))
                 {
                     w.structural = true;

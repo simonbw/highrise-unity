@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomTemplates:
+  - {fileID: 661194895980803861, guid: c2891e842f46b68828149aa1ff156256, type: 3}
   - {fileID: 661194895980803861, guid: b81567d63334da44b9167d44f5f09f1c, type: 3}
   - {fileID: 661194895980803861, guid: b81567d63334da44b9167d44f5f09f1c, type: 3}
   wall: {fileID: 3831156671230853401, guid: a3eab6c62d71078b98d556708f5e6b45, type: 3}

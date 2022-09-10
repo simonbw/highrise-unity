@@ -181,6 +181,10 @@ public class GridBuilder
             directionV = -directionV;
         }
 
+        if (cellP.x < 0 || cellP.y < 0 || cellP.x >= dimensions.x || cellP.y >= dimensions.y) {
+            return null;
+        }
+
         CellBuilder c = cells[cellP.x, cellP.y];
         Direction d = DirectionToV.d(directionV);
 
