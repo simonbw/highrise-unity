@@ -20,9 +20,8 @@ public class RoomTemplate : MonoBehaviour
     void Start()
     {
         foreach (GameObject d in doors) {
-            Vector2 p = d.transform.position;
-            // Door has negative position!
-            Debug.Assert(p.x > 0 && p.y > 0);
+            Vector2 p = d.transform.localPosition;
+            Debug.Assert(p.x >= 0 && p.y >= 0, "Door has negative position " + p);
         }
     }
 

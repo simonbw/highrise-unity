@@ -22,7 +22,7 @@ public class CellBuilder
             case Direction.RIGHT:
                 return right;
             case Direction.DOWN:
-                return right;
+                return down;
             case Direction.LEFT:
                 return left;
             case Direction.UP:
@@ -87,6 +87,7 @@ public class WallBuilder
     //indicates that this wall is  an important part of the level structure and should not
         // be removed during maze generation
     public bool structural = false;
+    public bool door = false;
 
     public WallBuilder(GridBuilder g, Vector2 cellLevelCoords, Direction directionFromCell)
     {
@@ -97,7 +98,7 @@ public class WallBuilder
     }
 
     public Vector2 getWorldCoords() { 
-        return cellLevelCoords * 2 + directionFromCellV + new Vector2(1, 1);
+        return cellLevelCoords * 2 + directionFromCellV + new Vector2(1f, 1f);
     }
 
     public Quaternion getRotation() { 
@@ -105,6 +106,13 @@ public class WallBuilder
             (Vector2) DirectionToV.v[Direction.RIGHT],
             directionFromCellV
         );
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + ": " + cellLevelCoords + " , "
+                + directionFromCell + "; structural:" + structural
+                + ", exists: " + exists;
     }
 }
 
@@ -161,8 +169,9 @@ public class GridBuilder
         Debug.Assert(wallI == nWalls);
     }
 
-    public WallBuilder wallPositionToBuilder(Vector2 position) {
-        Vector2Int cellP = Vector2Int.FloorToInt(position);
+    public WallBuilder wallPositionToBuilder(Vector2 position)
+    {
+        Vector2Int cellP = Vector2Int.CeilToInt(position) - new Vector2Int(1, 1);
         Vector2Int directionV = Vector2Int.RoundToInt((position - cellP).normalized);
         if (cellP.x == -1) {
             cellP.x++;
@@ -174,10 +183,12 @@ public class GridBuilder
 
         CellBuilder c = cells[cellP.x, cellP.y];
         Direction d = DirectionToV.d(directionV);
+
         return c.wall(d);
     }
 
-    public IEnumerable<Vector2Int> traverseDimensions(Vector2Int dimensions) {
+    public IEnumerable<Vector2Int> traverseDimensions(Vector2Int dimensions)
+    {
         for (int x = 0; x < dimensions.x; x++)
         {
             for (int y = 0; y < dimensions.y; y++)
