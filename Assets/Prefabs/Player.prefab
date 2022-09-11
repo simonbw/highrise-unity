@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2871392144094260948}
   - component: {fileID: 7526515045129288462}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9207798900287206161}
   - component: {fileID: 2521896907514543966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: -7363915870404328462}
   - component: {fileID: 4578597899646333180}
   - component: {fileID: 1241034457628561738}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7700d58ee17788c0859515167c8ce08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: -5}
+  offset: {x: 0, y: 0, z: -10}
 --- !u!1 &1385977622660342864
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 123441277672838386}
   - component: {fileID: 7953957710897985053}
   - component: {fileID: 8838214473473688822}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5673057382455909572}
   - component: {fileID: 8666450594284829228}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4457994535906346759}
   - component: {fileID: 1005762725916186328}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5156531704356395440}
   - component: {fileID: 9131790781409108022}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 448991321764874781, guid: 6fc5a97650b1640a3b5ff56cc60a1e72, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.107
+      value: 0.796
       objectReference: {fileID: 0}
     - target: {fileID: 448991321764874781, guid: 6fc5a97650b1640a3b5ff56cc60a1e72, type: 3}
       propertyPath: m_LocalPosition.y

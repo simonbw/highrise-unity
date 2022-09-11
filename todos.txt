@@ -6,15 +6,19 @@
 Systems to get in place
 ———————————————————————
 
+Guns
+ - Recoil
+ - Reloading
+ - Accuracy
+ - Different types of Bullets
+ - Laser sight
+ 
+
 Player
  - Movement
  - Animations
  - Guns
  - Sounds
-
-Bullets
- - Collisions
- - Particle effects
 
 Zombies
  - Animation

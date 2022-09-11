@@ -8,9 +8,14 @@ public class PlayerController : MonoBehaviour
   void Update()
   {
     // TODO: Is this the best way to be checking input?
-    if (Input.GetMouseButtonDown(0) && gun != null)
+    if (Input.GetButtonDown("Fire1"))
     {
-      gun.Fire();
+      gun?.Fire();
+    }
+
+    if (Input.GetButtonDown("Reload"))
+    {
+      gun?.Reload();
     }
   }
 
@@ -25,10 +30,26 @@ public class PlayerController : MonoBehaviour
 
     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     float targetAngle = Vector2.SignedAngle(Vector2.right, mousePosition - body.position);
-    float headAngle = Mathf.Clamp(targetAngle - body.rotation, -90f, 90f);
+    float headAngle = Mathf.Clamp(Mathf.DeltaAngle(targetAngle, body.rotation) % 360, -90f, 90f);
 
     GetComponent<AimController>().targetAngle = targetAngle;
-    GetComponent<BodyPoser>().headAngle = headAngle;
+    BodyPoser bodyPoser = GetComponent<BodyPoser>();
+    bodyPoser.headAngle = headAngle;
+
+    if (gun)
+    {
+      bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.leftHandPosition.position);
+      bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.rightHandPosition.position);
+      bodyPoser.stanceAngle = gun.stanceAngle;
+      bodyPoser.stanceOffset = gun.stanceOffset;
+    }
+    else
+    {
+      bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.leftHandPosition.position);
+      bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.rightHandPosition.position);
+      bodyPoser.stanceAngle = 0f;
+      bodyPoser.stanceOffset = new Vector2(0f, 0f);
+    }
   }
 
 

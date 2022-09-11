@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8075181650962942768}
   - component: {fileID: 911761485626045097}
   - component: {fileID: 2193300549658955594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,4 +114,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8ebe3b53810a24626805cabfcb713b66, type: 3}
   - {fileID: 21300000, guid: 5f80a2333fc954b65a986eddecbe5677, type: 3}
   - {fileID: 21300000, guid: 454532451d8944a7ab76b2840d87f4af, type: 3}
-  lifespan: 0.2
+  lifespan: 0.1
