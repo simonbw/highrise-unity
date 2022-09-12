@@ -62,8 +62,11 @@ public class GunScript : MonoBehaviour
       var shell = Instantiate(casingPrefab, ejectionPosition.position, ejectionPosition.rotation);
       var shellBody = shell.GetComponent<Rigidbody2D>();
 
+      shellBody.velocity = GetComponentInParent<Rigidbody2D>().velocity;
       shellBody.AddRelativeForce(new Vector2(Random.Range(-0.05f, 0.05f), Random.Range(-0.3f, -0.45f)), ForceMode2D.Impulse);
-      shellBody.AddTorque(Random.Range(-1f, 1f), ForceMode2D.Impulse);
+      shellBody.AddTorque(Random.Range(-0.01f, 0.01f), ForceMode2D.Impulse);
+
+      shell.GetComponent<CasingBounce>().zVelocity = Random.Range(1f, 5f);
     }
   }
 }
