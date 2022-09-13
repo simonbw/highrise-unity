@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 448991321764874781}
   - component: {fileID: -3356263980489219424}
   - component: {fileID: 168028881886434555}
+  - component: {fileID: 2591560688860162365}
   m_Layer: 7
   m_Name: Magnum
   m_TagString: Untagged
@@ -105,6 +106,21 @@ MonoBehaviour:
   muzzleFlashPrefabs:
   - {fileID: 4290598344502494115, guid: 4bf47bc17db7e43e4a2f8b030eefe3be, type: 3}
   casingPrefab: {fileID: 5819666491551977110, guid: 718beb234fb2d4d7992224f7df9d0391, type: 3}
+  audioSource: {fileID: 2591560688860162365}
+  shootSounds:
+  - {fileID: 8300000, guid: 8762713c188f4491297a212d2251d625, type: 3}
+  emptySounds:
+  - {fileID: 8300000, guid: c4585106f3a544496a5e2849abcbaa57, type: 3}
+  reloadStartSounds:
+  - {fileID: 8300000, guid: 0ae987956dd1a47f288413442d9ad280, type: 3}
+  reloadInsertSounds:
+  - {fileID: 8300000, guid: 6b9899831dc3f4bb39c0f075cca7768e, type: 3}
+  - {fileID: 8300000, guid: 82d973727ef974a8e8f63efe8134fc42, type: 3}
+  - {fileID: 8300000, guid: abc2ea2f13c25424695fe8a0e7adab8c, type: 3}
+  reloadFinishSounds:
+  - {fileID: 8300000, guid: c9aa8b913e6744d50a1e05af561ad0c4, type: 3}
+  pumpSounds: []
+  pickupSounds: []
   muzzlePosition: {fileID: 6357867495450111741}
   ejectionPosition: {fileID: 2841105156081470113}
   leftHandPosition: {fileID: 4369105727626031149}
@@ -112,6 +128,12 @@ MonoBehaviour:
   stanceAngle: 0
   stanceOffset: {x: 0, y: 0}
   ammoCapacity: 6
+  reloadStartDuration: 0.25
+  reloadInsertDuration: 0.2
+  reloadFinishDuration: 1
+  reloadStyle: 0
+  ejectionType: 2
+  fireMode: 0
   onFire:
     m_PersistentCalls:
       m_Calls:
@@ -127,6 +149,102 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!82 &2591560688860162365
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656396945552079626}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &684000040994624058
 GameObject:
   m_ObjectHideFlags: 0

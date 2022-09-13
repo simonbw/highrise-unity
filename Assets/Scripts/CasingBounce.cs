@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class CasingBounce : MonoBehaviour
 {
+  [Header("Physics")]
   public float gravity = -9.8f;
   public float minBounceSpeed = 1f;
   public float bounceRestitution = 0.3f;
   public float zScaling = 5.8f;
 
-  public AudioSource[] bounceSounds;
-
   public float z;
   public float zVelocity;
+
+  [Header("Audio")]
+  public AudioSource audioSource;
+  public AudioClip[] bounceSounds;
 
   // Start is called before the first frame update
   void Start()
@@ -43,9 +46,12 @@ public class CasingBounce : MonoBehaviour
           body.velocity *= bounceRestitution;
 
           // TODO: Play sound
-          var sound = bounceSounds[Random.Range(0, bounceSounds.Length)];
-          sound.volume = Mathf.Clamp01(Mathf.Abs(zVelocity) * 0.1f);
-          sound.Play();
+          var volume = Mathf.Clamp01(Mathf.Abs(zVelocity) * 0.1f);
+          AudioClip clip = bounceSounds.Choose();
+          if (clip)
+          {
+            audioSource.PlayOneShot(clip, volume);
+          }
         }
         else
         {
@@ -64,8 +70,11 @@ public class CasingBounce : MonoBehaviour
 
   public void OnCollisionEnter2D()
   {
-    var sound = bounceSounds[Random.Range(0, bounceSounds.Length)];
-    sound.volume = Mathf.Clamp01(GetComponent<Rigidbody2D>().velocity.magnitude);
-    sound.Play();
+    var volume = Mathf.Clamp01(GetComponent<Rigidbody2D>().velocity.magnitude);
+    AudioClip clip = bounceSounds.Choose();
+    if (clip)
+    {
+      audioSource.PlayOneShot(clip, volume);
+    }
   }
 }
