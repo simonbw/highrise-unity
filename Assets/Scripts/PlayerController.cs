@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
     {
       gun?.Fire();
     }
+    else if (Input.GetButton("Fire1"))
+    {
+
+    }
 
     if (Input.GetButtonDown("Reload"))
     {
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
     float speedPercent = Mathf.Clamp01(moveDirection.magnitude);
     GetComponent<WalkController>().WalkTowards(angle, speedPercent);
 
+    // TODO: Support controller aiming
     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     float targetAngle = Vector2.SignedAngle(Vector2.right, mousePosition - body.position);
     float headAngle = Mathf.Clamp(Mathf.DeltaAngle(targetAngle, body.rotation) % 360, -90f, 90f);
@@ -38,15 +43,16 @@ public class PlayerController : MonoBehaviour
 
     if (gun)
     {
-      bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.leftHandPosition.position);
-      bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.rightHandPosition.position);
+      bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.GetLeftHandPosition());
+      bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.GetRightHandPosition());
       bodyPoser.stanceAngle = gun.stanceAngle;
       bodyPoser.stanceOffset = gun.stanceOffset;
     }
     else
     {
-      bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.leftHandPosition.position);
-      bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.rightHandPosition.position);
+      // TODO: Empty hand better 
+      bodyPoser.leftHandPosition = new Vector2(0f, 0f);
+      bodyPoser.rightHandPosition = new Vector2(0f, 0f);
       bodyPoser.stanceAngle = 0f;
       bodyPoser.stanceOffset = new Vector2(0f, 0f);
     }

@@ -1,21 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public Vector3 offset;
+  public Transform origin;
+  public Vector3 offset;
+  [Range(0f, 1f)]
+  public float smoothTime = 0.1f;
+  [Range(0f, 1f)]
+  public float mouseBias = 0.5f;
 
-    void Start()
-    {
-    }
+  private Vector3 velocity = new(0f, 0f, 0f);
 
-    void Update()
-    {
-        Camera.main.transform.position = new Vector3(
-            transform.position.x + offset.x,
-            transform.position.y + offset.y,
-            offset.z
-        );
-    }
+  void Update()
+  {
+    var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    var target = Vector3.Lerp(origin.position, mousePos, mouseBias);
+    target.z = -10;
+
+    Camera.main.transform.position = Vector3.SmoothDamp(
+      Camera.main.transform.position,
+      target,
+      ref velocity,
+      smoothTime
+    );
+  }
 }

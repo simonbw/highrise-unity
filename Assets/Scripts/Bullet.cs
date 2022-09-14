@@ -25,12 +25,14 @@ public class Bullet : MonoBehaviour
     // Remove from the simulation, but keep around for trail effects
     GetComponent<Rigidbody2D>().simulated = false;
 
+    var contact = collision.GetContact(0);
     if (impactPrefab)
     {
-      var contact = collision.GetContact(0);
       float normalAngle = Vector2.SignedAngle(Vector2.right, contact.normal);
       Instantiate(impactPrefab, contact.point, Quaternion.Euler(0, 0, normalAngle));
     }
+
+    transform.position = contact.point; // So that the trail is drawn to the right place
 
     collision.otherRigidbody.GetComponent<BulletHitDetector>()?.OnBulletHit();
   }

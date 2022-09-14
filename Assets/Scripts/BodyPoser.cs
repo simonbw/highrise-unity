@@ -51,6 +51,7 @@ public class BodyPoser : MonoBehaviour
     rightArm.transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.right, rightShoulderDirection));
     rightArm.transform.localScale = new Vector3((rightHandPosition - rightShoulderPosition).magnitude / rightArmSize, 1f, 1f);
 
+    head.transform.localPosition = stanceOffset;
     head.transform.localEulerAngles = new Vector3(0f, 0f, headAngle);
   }
 
