@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyPoser : MonoBehaviour
-{
+public class BodyPoser : MonoBehaviour {
 
   // References
   [Header("References")]
@@ -30,8 +27,7 @@ public class BodyPoser : MonoBehaviour
   public float rightArmSize = 0.7f;
 
   // Start is called before the first frame update
-  void Update()
-  {
+  void Update() {
     Vector2 leftShoulderPosition = FromPolar(stanceAngle + Vector2.SignedAngle(Vector2.right, leftShoulderBase), leftShoulderBase.magnitude) + stanceOffset;
     Vector2 rightShoulderPosition = FromPolar(stanceAngle + Vector2.SignedAngle(Vector2.right, rightShoulderBase), rightShoulderBase.magnitude) + stanceOffset;
 
@@ -65,8 +61,7 @@ public class BodyPoser : MonoBehaviour
   //   ];
   // }
 
-  private Vector2 FromPolar(float theta, float r)
-  {
+  private Vector2 FromPolar(float theta, float r) {
     return new Vector2(r * Mathf.Cos(theta * Mathf.Deg2Rad), r * Mathf.Sin(theta * Mathf.Deg2Rad));
   }
 }

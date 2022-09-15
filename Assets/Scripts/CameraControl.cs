@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour
-{
+public class CameraControl : MonoBehaviour {
   public Transform origin;
   public Vector3 offset;
   [Range(0f, 1f)]
@@ -11,8 +10,7 @@ public class CameraControl : MonoBehaviour
 
   private Vector3 velocity = new(0f, 0f, 0f);
 
-  void Update()
-  {
+  void Update() {
     var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     var target = Vector3.Lerp(origin.position, mousePos, mouseBias);
     target.z = -10;

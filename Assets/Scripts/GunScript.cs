@@ -1,26 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum FireMode
-{
+public enum FireMode {
   // One bullet per trigger pull
   SemiAuto,
   // Constant bullets as long as trigger is down
   FullAuto,
 }
 
-public enum ReloadStyle
-{
+public enum ReloadStyle {
   // Rounds are loaded one-at-a-time
   Individual,
   // One reload action brings the gun back to full ammo
   Magazine
 }
 
-public enum EjectionType
-{
+public enum EjectionType {
   // Shells eject on each shot
   Automatic,
   // Shells eject when pumped
@@ -29,8 +25,7 @@ public enum EjectionType
   Reload,
 }
 
-public class GunScript : MonoBehaviour
-{
+public class GunScript : MonoBehaviour {
   [Header("Prefabs")]
   public GameObject bulletPrefab;
   public GameObject casingPrefab;
@@ -87,26 +82,21 @@ public class GunScript : MonoBehaviour
   [SerializeField]
   bool roundChambered = true;
 
-  public void Start()
-  {
+  public void Start() {
     ammo = ammoCapacity;
   }
 
-  public Vector2 GetLeftHandPosition()
-  {
+  public Vector2 GetLeftHandPosition() {
     float pumpOffset = -0.3f * pumpAmount;
     return leftHandPosition.TransformPoint(new Vector2(pumpOffset, 0f));
   }
 
-  public Vector2 GetRightHandPosition()
-  {
+  public Vector2 GetRightHandPosition() {
     return rightHandPosition.position;
   }
 
-  public void Update()
-  {
-    if (shootCooldown > 0)
-    {
+  public void Update() {
+    if (shootCooldown > 0) {
       shootCooldown -= Time.deltaTime;
     }
 
@@ -118,23 +108,16 @@ public class GunScript : MonoBehaviour
     recoilTransform.localEulerAngles = new Vector3(0f, 0f, angle);
   }
 
-  float CurrentRecoil()
-  {
+  float CurrentRecoil() {
     return Mathf.Clamp01(shootCooldown / cooldownOnShoot);
   }
 
-  public void Fire()
-  {
+  public void Fire() {
     StartCoroutine(DoFire());
   }
 
-  public IEnumerator DoFire()
-  {
-    if (isReloading) { /* Cancel? Do Nothing? */ }
-    else if (shootCooldown > 0 || pumpAmount > 0) { /* Do Nothing? */ }
-    else if (!roundChambered) { PlaySound(emptySounds); }
-    else
-    {
+  public IEnumerator DoFire() {
+    if (isReloading) { /* Cancel? Do Nothing? */ } else if (shootCooldown > 0 || pumpAmount > 0) { /* Do Nothing? */ } else if (!roundChambered) { PlaySound(emptySounds); } else {
       // Actually shoot
       ammo -= 1;
       shellsToEject += 1;
@@ -146,18 +129,15 @@ public class GunScript : MonoBehaviour
       PlaySound(shootSounds);
       onFire?.Invoke();
 
-      switch (ejectionType)
-      {
+      switch (ejectionType) {
         case EjectionType.Automatic:
           EjectShell();
-          if (ammo > 0)
-          {
+          if (ammo > 0) {
             roundChambered = true;
           }
           break;
         case EjectionType.Reload:
-          if (ammo > 0)
-          {
+          if (ammo > 0) {
             roundChambered = true;
           }
           break;
@@ -171,13 +151,11 @@ public class GunScript : MonoBehaviour
     yield return null;
   }
 
-  public void Pump()
-  {
+  public void Pump() {
     StartCoroutine(DoPump());
   }
 
-  public IEnumerator DoPump()
-  {
+  public IEnumerator DoPump() {
     pumpAmount = 0f;
 
     PlaySound(pumpSounds);
@@ -185,8 +163,7 @@ public class GunScript : MonoBehaviour
     float duration = pumpDuration * 0.4f;
 
     float timeRemaining = duration;
-    while (timeRemaining > 0)
-    {
+    while (timeRemaining > 0) {
       timeRemaining -= Time.deltaTime;
       pumpAmount = Mathf.Clamp01(1f - timeRemaining / duration);
       yield return null;
@@ -198,59 +175,46 @@ public class GunScript : MonoBehaviour
     yield return new WaitForSeconds(pumpDuration * 0.2f);
 
     timeRemaining = duration;
-    while (timeRemaining > 0)
-    {
+    while (timeRemaining > 0) {
       timeRemaining -= Time.deltaTime;
       pumpAmount = Mathf.Clamp01(timeRemaining / duration);
       yield return null;
     }
 
-    if (ammo > 0)
-    {
+    if (ammo > 0) {
       roundChambered = true;
     }
     pumpAmount = 0f;
   }
 
-  public void Reload()
-  {
-    if (!isReloading)
-    {
+  public void Reload() {
+    if (!isReloading) {
       StartCoroutine(DoReload());
-    }
-    else
-    {
+    } else {
       // TODO: Cancel reloading?
     }
   }
 
-  private IEnumerator DoReload()
-  {
+  private IEnumerator DoReload() {
     isReloading = true;
 
     PlaySound(reloadStartSounds);
     yield return new WaitForSeconds(reloadStartDuration);
 
     // Ejection
-    if (ejectionType == EjectionType.Reload)
-    {
-      while (this.shellsToEject > 0)
-      {
+    if (ejectionType == EjectionType.Reload) {
+      while (this.shellsToEject > 0) {
         EjectShell();
         yield return new WaitForSeconds(0.02f);
       }
     }
 
     // Insert
-    if (reloadStyle == ReloadStyle.Magazine)
-    {
+    if (reloadStyle == ReloadStyle.Magazine) {
       yield return new WaitForSeconds(reloadInsertDuration);
       ammo = ammoCapacity;
-    }
-    else
-    {
-      while (ammo < ammoCapacity)
-      {
+    } else {
+      while (ammo < ammoCapacity) {
         PlaySound(reloadInsertSounds);
         yield return new WaitForSeconds(reloadInsertDuration);
         ammo += 1;
@@ -263,37 +227,30 @@ public class GunScript : MonoBehaviour
 
     isReloading = false;
 
-    if (ejectionType == EjectionType.Reload)
-    {
+    if (ejectionType == EjectionType.Reload) {
       roundChambered = true;
     }
 
-    if (!roundChambered)
-    {
+    if (!roundChambered) {
       yield return DoPump();
     }
   }
 
-  public void EjectShell()
-  {
-    if (shellsToEject > 0)
-    {
+  public void EjectShell() {
+    if (shellsToEject > 0) {
       this.shellsToEject -= 1;
       var shell = Instantiate(casingPrefab, ejectionPosition.position, ejectionPosition.rotation);
       var shellBody = shell.GetComponent<Rigidbody2D>();
 
       shellBody.velocity = GetComponentInParent<Rigidbody2D>().velocity;
 
-      if (ejectionType == EjectionType.Reload)
-      {
+      if (ejectionType == EjectionType.Reload) {
         var force = new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
         shellBody.AddRelativeForce(force, ForceMode2D.Impulse);
         float torque = Random.Range(-0.005f, 0.005f);
         shellBody.AddTorque(torque, ForceMode2D.Impulse);
         shell.GetComponent<CasingBounce>().zVelocity = 0f;
-      }
-      else
-      {
+      } else {
         var force = new Vector2(Random.Range(-0.05f, 0.05f), Random.Range(-0.2f, -0.3f));
         float torque = Random.Range(-0.01f, 0.01f);
 
@@ -304,11 +261,9 @@ public class GunScript : MonoBehaviour
     }
   }
 
-  private void PlaySound(AudioClip[] clips)
-  {
+  private void PlaySound(AudioClip[] clips) {
     var clip = clips.Choose();
-    if (clip != null)
-    {
+    if (clip != null) {
       audioSource.PlayOneShot(clip);
     }
   }

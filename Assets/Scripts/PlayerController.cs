@@ -1,30 +1,23 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
 
   public GunScript gun = null;
 
-  void Update()
-  {
+  void Update() {
     // TODO: Is this the best way to be checking input?
-    if (Input.GetButtonDown("Fire1"))
-    {
+    if (Input.GetButtonDown("Fire1")) {
       gun?.Fire();
-    }
-    else if (Input.GetButton("Fire1"))
-    {
-
+    } else if (gun?.fireMode == FireMode.FullAuto && Input.GetButton("Fire1")) {
+      gun.Fire();
     }
 
-    if (Input.GetButtonDown("Reload"))
-    {
+    if (Input.GetButtonDown("Reload")) {
       gun?.Reload();
     }
   }
 
-  void FixedUpdate()
-  {
+  void FixedUpdate() {
     Rigidbody2D body = GetComponent<Rigidbody2D>();
 
     Vector2 moveDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -41,15 +34,12 @@ public class PlayerController : MonoBehaviour
     BodyPoser bodyPoser = GetComponent<BodyPoser>();
     bodyPoser.headAngle = headAngle;
 
-    if (gun)
-    {
+    if (gun) {
       bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.GetLeftHandPosition());
       bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.GetRightHandPosition());
       bodyPoser.stanceAngle = gun.stanceAngle;
       bodyPoser.stanceOffset = gun.stanceOffset;
-    }
-    else
-    {
+    } else {
       // TODO: Empty hand better 
       bodyPoser.leftHandPosition = new Vector2(0f, 0f);
       bodyPoser.rightHandPosition = new Vector2(0f, 0f);

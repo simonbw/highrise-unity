@@ -1,8 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class MuzzleFlash : MonoBehaviour
-{
+public class MuzzleFlash : MonoBehaviour {
 
   public Sprite[] muzzleFlashSprites;
   public float lifespan = 0.1f; // in seconds
@@ -10,16 +8,14 @@ public class MuzzleFlash : MonoBehaviour
   float timeLeft;
 
   // Start is called before the first frame update
-  void Start()
-  {
+  void Start() {
     timeLeft = lifespan;
     int i = Random.Range(0, muzzleFlashSprites.Length);
     GetComponent<SpriteRenderer>().sprite = muzzleFlashSprites[i];
   }
 
   // Update is called once per frame
-  void Update()
-  {
+  void Update() {
     var sprite = GetComponent<SpriteRenderer>();
     var t = Mathf.Clamp01(timeLeft / lifespan);
 
@@ -28,8 +24,7 @@ public class MuzzleFlash : MonoBehaviour
     transform.localScale.Set(scale, scale, scale);
 
     timeLeft -= Time.deltaTime;
-    if (timeLeft <= 0)
-    {
+    if (timeLeft <= 0) {
       Destroy(gameObject);
     }
   }
