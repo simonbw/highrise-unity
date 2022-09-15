@@ -71,7 +71,7 @@ MonoBehaviour:
   ejectionPosition: {fileID: 2841105156081470113}
   leftHandPosition: {fileID: 4369105727626031149}
   rightHandPosition: {fileID: 7671040620511398131}
-  stanceAngle: -65
+  stanceAngle: -50
   stanceOffset: {x: 0.5, y: 0.25}
   ammoCapacity: 30
   reloadStartDuration: 0.3
