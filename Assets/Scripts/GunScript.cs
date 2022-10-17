@@ -249,14 +249,14 @@ public class GunScript : MonoBehaviour {
         shellBody.AddRelativeForce(force, ForceMode2D.Impulse);
         float torque = Random.Range(-0.005f, 0.005f);
         shellBody.AddTorque(torque, ForceMode2D.Impulse);
-        shell.GetComponent<CasingBounce>().zVelocity = 0f;
+        shell.GetComponent<ZScaler>().zVelocity = 0f;
       } else {
         var force = new Vector2(Random.Range(-0.05f, 0.05f), Random.Range(-0.2f, -0.3f));
-        float torque = Random.Range(-0.01f, 0.01f);
+        float torque = Random.Range(-0.005f, 0.005f);
 
         shellBody.AddRelativeForce(force, ForceMode2D.Impulse);
         shellBody.AddTorque(torque, ForceMode2D.Impulse);
-        shell.GetComponent<CasingBounce>().zVelocity = Random.Range(0f, 2f);
+        shell.GetComponent<ZScaler>().zVelocity = Random.Range(0f, 2f);
       }
     }
   }

@@ -12,13 +12,14 @@ Guns
  - Accuracy
  - Different types of Bullets
  - Laser sight
+ - Pickups
  
-
 Player
  - Movement
  - Animations
- - Guns
  - Sounds
+
+Interactions/Pickups
 
 Zombies
  - Animation
@@ -26,6 +27,8 @@ Zombies
  - Attacking
  - Taking damage
  - Sounds
+
+Bosses
 
 Environment
  - Backgrounds
@@ -37,8 +40,6 @@ Graphics
  - Vision System
 
 Effects
- - Muzzle flash
- - Bullet impact
  - Blood splatter
 
 UI

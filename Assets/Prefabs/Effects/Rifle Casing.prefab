@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: -5217332767292592539}
   - component: {fileID: -8929133260852910347}
   - component: {fileID: 4237240738351448024}
-  - component: {fileID: 269713708707861520}
   - component: {fileID: 7416149808564265792}
+  - component: {fileID: 8185932488683567528}
+  - component: {fileID: 3137001849270146705}
   m_Layer: 8
-  m_Name: Shotgun Casing
+  m_Name: Rifle Casing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a3ac643b258ba43f3a610ee6510707f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 441bed1541998472384f671ed7e7dc10, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4cc9712bc95b6441d859664ef69c6175, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,36 +127,15 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.0390625, y: 0.09375}
+    oldSize: {x: 0.03515625, y: 0.13671875}
     newSize: {x: 0.09, y: 0.18}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.03529686, y: 0.09140697}
+  m_Size: {x: 0.03515625, y: 0.13671875}
   m_EdgeRadius: 0
---- !u!114 &269713708707861520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5819666491551977110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03a9c2e2612b54ffcbad96584e3edff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: -9.8
-  minBounceSpeed: 0.25
-  bounceRestitution: 0.41
-  zScaling: 0.8
-  z: 0
-  zVelocity: 0
-  audioSource: {fileID: 7416149808564265792}
-  bounceSounds:
-  - {fileID: 8300000, guid: 2d3af77852bdd4aa48b0befd493a606d, type: 3}
 --- !u!82 &7416149808564265792
 AudioSource:
   m_ObjectHideFlags: 0
@@ -166,7 +146,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ab27434a97a3c41c88347a9ae080bf3d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -252,3 +232,60 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8185932488683567528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5819666491551977110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfbeb712b36347edac592e9063fa283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 7416149808564265792}
+  clips:
+  - {fileID: 8300000, guid: ab27434a97a3c41c88347a9ae080bf3d, type: 3}
+  - {fileID: 8300000, guid: ebd37a773d54f4c94a5dce261a1ff899, type: 3}
+  - {fileID: 8300000, guid: 8c8223e94a3a742a3b0ea7dcd6318689, type: 3}
+  - {fileID: 8300000, guid: 23fbfae8babef4934947110843802a9d, type: 3}
+--- !u!114 &3137001849270146705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5819666491551977110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abe44b4fa38f4cbe8101b07d36c1f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -9.8
+  minBounceSpeed: 1
+  bounceRestitution: 0.3
+  zScaling: 2
+  scaleOnFloor: 1
+  z: 1
+  zVelocity: 0
+  bounceSounds: {fileID: 8185932488683567528}
+  OnBounce:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8185932488683567528}
+        m_TargetAssemblyTypeName: AudioRing, Scripts
+        m_MethodName: Play
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStop:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnStop: 0

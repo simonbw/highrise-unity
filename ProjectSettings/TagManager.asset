@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Zombie
+  - Human
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Creatures
   - Effects
   - Bullets
-  - 
+  - Decals
   - 
   - 
   - 
@@ -38,6 +40,36 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3297651543
+    locked: 0
+  - name: Floor
+    uniqueID: 4251778909
+    locked: 0
+  - name: Floor Blood
+    uniqueID: 2652858015
+    locked: 0
+  - name: Floor Items
+    uniqueID: 2955142029
+    locked: 0
+  - name: Walls
+    uniqueID: 2238498663
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Zombies
+    uniqueID: 8316501
+    locked: 0
+  - name: Blood Drops
+    uniqueID: 1851198517
+    locked: 0
+  - name: Humans
+    uniqueID: 2278180865
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1665928671
+    locked: 0
+  - name: Effects
+    uniqueID: 2137489089
     locked: 0

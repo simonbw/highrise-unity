@@ -28,8 +28,10 @@ public class BodyPoser : MonoBehaviour {
 
   // Start is called before the first frame update
   void Update() {
-    Vector2 leftShoulderPosition = FromPolar(stanceAngle + Vector2.SignedAngle(Vector2.right, leftShoulderBase), leftShoulderBase.magnitude) + stanceOffset;
-    Vector2 rightShoulderPosition = FromPolar(stanceAngle + Vector2.SignedAngle(Vector2.right, rightShoulderBase), rightShoulderBase.magnitude) + stanceOffset;
+    float leftShoulderAngle = stanceAngle + Vector2.SignedAngle(Vector2.right, leftShoulderBase);
+    Vector2 leftShoulderPosition = VectorUtils.FromPolar(leftShoulderAngle, leftShoulderBase.magnitude) + stanceOffset;
+    float rightShoulderAngle = stanceAngle + Vector2.SignedAngle(Vector2.right, rightShoulderBase);
+    Vector2 rightShoulderPosition = VectorUtils.FromPolar(rightShoulderAngle, rightShoulderBase.magnitude) + stanceOffset;
 
     leftHand.transform.localPosition = leftHandPosition;
     rightHand.transform.localPosition = rightHandPosition;
@@ -49,20 +51,6 @@ public class BodyPoser : MonoBehaviour {
 
     head.transform.localPosition = stanceOffset;
     head.transform.localEulerAngles = new Vector3(0f, 0f, headAngle);
-  }
-
-
-  // Vector2 getShoulderPositions()
-  // {
-  //   const r = this.radius - this.armThickness / 2;
-  //   return [
-  //     polarToVec(stanceAngle - Math.PI / 2, r).iadd(offset),
-  //     polarToVec(stanceAngle + Math.PI / 2, r).iadd(offset),
-  //   ];
-  // }
-
-  private Vector2 FromPolar(float theta, float r) {
-    return new Vector2(r * Mathf.Cos(theta * Mathf.Deg2Rad), r * Mathf.Sin(theta * Mathf.Deg2Rad));
   }
 }
 

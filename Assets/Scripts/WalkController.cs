@@ -11,7 +11,7 @@ public class WalkController : MonoBehaviour {
   Vector2 targetVelocity = new(0, 0);
 
   public void WalkTowards(float angle, float speedPercent = 1f) {
-    targetVelocity = FromPolar(angle, speedPercent * walkSpeed);
+    targetVelocity = VectorUtils.FromPolar(angle, speedPercent * walkSpeed);
   }
 
   public void Stop() {
@@ -21,9 +21,5 @@ public class WalkController : MonoBehaviour {
   // Update is called once per frame
   void FixedUpdate() {
     body.AddForce((this.targetVelocity - body.velocity) * body.mass * acceleration);
-  }
-
-  private Vector2 FromPolar(float theta, float r) {
-    return new Vector2(r * Mathf.Cos(theta * Mathf.Deg2Rad), r * Mathf.Sin(theta * Mathf.Deg2Rad));
   }
 }

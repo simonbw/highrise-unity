@@ -20,7 +20,7 @@ public class LevelTemplate : MonoBehaviour {
     initGrid();
 
     List<Vector2Int> roomPositions = g.traverseDimensions(g.dimensions).ToList();
-    RandomUtils.shuffleList(roomPositions);
+    RandomUtils.ShuffleList(roomPositions);
 
     foreach (GameObject rRaw in roomTemplates) {
       foreach (Vector2Int roomPos in roomPositions) {

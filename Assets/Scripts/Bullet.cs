@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour {
 
   void Start() {
     Rigidbody2D body = GetComponent<Rigidbody2D>();
-    body.AddRelativeForce(Vector2.right * speed, ForceMode2D.Impulse);
+    body?.AddRelativeForce(Vector2.right * speed * (body?.mass ?? 0f), ForceMode2D.Impulse);
 
     Destroy(gameObject, 1f);
   }
@@ -19,14 +19,21 @@ public class Bullet : MonoBehaviour {
     // Remove from the simulation, but keep around for trail effects
     GetComponent<Rigidbody2D>().simulated = false;
 
+    BulletHitDetector other = collision.rigidbody.gameObject.GetComponent<BulletHitDetector>();
+
     var contact = collision.GetContact(0);
     if (impactPrefab) {
       float normalAngle = Vector2.SignedAngle(Vector2.right, contact.normal);
-      Instantiate(impactPrefab, contact.point, Quaternion.Euler(0, 0, normalAngle));
+      var impactInstance = Instantiate(impactPrefab, contact.point, Quaternion.Euler(0, 0, normalAngle));
+
+      var color = other?.impactColor ?? new Gradient();
+      impactInstance.GetComponent<BulletImpact>().Init(color);
+
+      // TODO: Relative velocity and such?
     }
 
     transform.position = contact.point; // So that the trail is drawn to the right place
 
-    collision.otherRigidbody.GetComponent<BulletHitDetector>()?.OnBulletHit();
+    other?.OnBulletHit();
   }
 }
