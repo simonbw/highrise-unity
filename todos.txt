@@ -36,8 +36,9 @@ Environment
  - Other Objects
 
 Graphics
- - Lighting
  - Vision System
+ - Post Processing
+   - Bloom
 
 Effects
  - Blood splatter

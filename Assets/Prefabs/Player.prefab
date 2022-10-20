@@ -182,7 +182,6 @@ GameObject:
   - component: {fileID: 8942794731239625182}
   - component: {fileID: -7363915870404328462}
   - component: {fileID: 4578597899646333180}
-  - component: {fileID: 1241034457628561738}
   m_Layer: 7
   m_Name: Player
   m_TagString: Human
@@ -213,7 +212,7 @@ Transform:
   - {fileID: 4457994535906346759}
   - {fileID: 4566425694394926677}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1348057137580731182
 Rigidbody2D:
@@ -307,22 +306,6 @@ MonoBehaviour:
   rotationLerpAmount: 0.9
   body: {fileID: 1348057137580731182}
   targetAngle: 0
---- !u!114 &1241034457628561738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348057137580731171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7700d58ee17788c0859515167c8ce08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  origin: {fileID: 4457994535906346759}
-  offset: {x: 0, y: 0, z: -10}
-  smoothTime: 0.077
-  mouseBias: 0.153
 --- !u!1 &1385977622660342864
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +502,7 @@ GameObject:
   - component: {fileID: 4566425694394926677}
   - component: {fileID: 261284514413801643}
   m_Layer: 0
-  m_Name: Light 2D
+  m_Name: Player Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -792,6 +775,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1348057137580731180}
     m_Modifications:
     - target: {fileID: 448991321764874781, guid: 6fc5a97650b1640a3b5ff56cc60a1e72, type: 3}
@@ -843,6 +827,7 @@ PrefabInstance:
       value: Magnum
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fc5a97650b1640a3b5ff56cc60a1e72, type: 3}
 --- !u!4 &3481040034404357736 stripped
 Transform:
@@ -854,6 +839,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1348057137580731180}
     m_Modifications:
     - target: {fileID: 448991321764874781, guid: 2daaeb2d8e3f244b4a4c83a01e63a229, type: 3}
@@ -905,6 +891,7 @@ PrefabInstance:
       value: Remington
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2daaeb2d8e3f244b4a4c83a01e63a229, type: 3}
 --- !u!4 &4799313926679603086 stripped
 Transform:
@@ -916,6 +903,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1348057137580731180}
     m_Modifications:
     - target: {fileID: 448991321764874781, guid: b840217e163cc4868ba9e448fcefe634, type: 3}
@@ -967,6 +955,7 @@ PrefabInstance:
       value: AR-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b840217e163cc4868ba9e448fcefe634, type: 3}
 --- !u!114 &8101504648232158793 stripped
 MonoBehaviour:

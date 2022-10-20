@@ -13,7 +13,7 @@ public class RandomSprite : MonoBehaviour {
   public bool useRandomColor;
   public Gradient gradient;
 
-  public void Start() {
+  public void Awake() {
     var renderer = GetComponent<SpriteRenderer>();
 
     if (renderer) {

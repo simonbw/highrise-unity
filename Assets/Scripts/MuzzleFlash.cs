@@ -6,20 +6,22 @@ public class MuzzleFlash : MonoBehaviour {
 
   [Header("references")]
   public SpriteRenderer sprite;
-  public new Light2D light;
+  public Light2D spotLight;
+  public Light2D spriteLight;
 
   float timeLeft;
 
   // Start is called before the first frame update
   void Start() {
     timeLeft = lifespan;
+    spriteLight.lightCookieSprite = sprite.sprite;
   }
 
   // Update is called once per frame
   void Update() {
     var t = Mathf.Clamp01(timeLeft / lifespan);
 
-    light.intensity = Mathf.Pow(t, 2f);
+    spotLight.intensity = Mathf.Pow(t, 2f);
 
     sprite.color = new Color(1f, 1f, 1f, Mathf.Sqrt(t));
     var scale = 2f - Mathf.Pow(t, 2f);

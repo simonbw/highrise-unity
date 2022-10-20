@@ -4,6 +4,24 @@ public class PlayerController : MonoBehaviour {
 
   public GunScript gun = null;
 
+  void OnEnable() {
+    foreach (var gun in GetComponentsInChildren<GunScript>()) {
+      gun.onFire.AddListener(OnFire);
+    }
+  }
+
+  void OnDisable() {
+    foreach (var gun in GetComponentsInChildren<GunScript>()) {
+      gun.onFire.RemoveListener(OnFire);
+    }
+  }
+
+  void OnFire(GunScript gun) {
+    CameraShake.Shake(gun.cameraShakeInfo);
+  }
+
+  // TODO: Handle getting and losing guns
+
   void Update() {
     // TODO: Is this the best way to be checking input?
     if (Input.GetButtonDown("Fire1")) {

@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour {
+public class FollowCamera : MonoBehaviour {
   public Transform origin;
+  public Camera targetCamera;
+
   public Vector3 offset;
   [Range(0f, 1f)]
   public float smoothTime = 0.1f;
@@ -11,12 +13,16 @@ public class CameraControl : MonoBehaviour {
   private Vector3 velocity = new(0f, 0f, 0f);
 
   void Update() {
-    var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    if (targetCamera == null) {
+      targetCamera = Camera.main;
+    }
+
+    var mousePos = targetCamera.ScreenToWorldPoint(Input.mousePosition);
     var target = Vector3.Lerp(origin.position, mousePos, mouseBias);
     target.z = -10;
 
-    Camera.main.transform.position = Vector3.SmoothDamp(
-      Camera.main.transform.position,
+    targetCamera.transform.position = Vector3.SmoothDamp(
+      targetCamera.transform.position,
       target,
       ref velocity,
       smoothTime

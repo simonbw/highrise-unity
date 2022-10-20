@@ -65,8 +65,14 @@ public class GunScript : MonoBehaviour {
   public EjectionType ejectionType = EjectionType.Automatic;
   public FireMode fireMode = FireMode.SemiAuto;
 
+  public CameraShakeInfo cameraShakeInfo = new(
+    amount: 0.5f,
+    numberOfShakes: 1,
+    timePerShake: 1f
+  );
+
   [Header("Events")]
-  public UnityEvent onFire;
+  public UnityEvent<GunScript> onFire;
 
   // Private variables
   [SerializeField]
@@ -117,7 +123,13 @@ public class GunScript : MonoBehaviour {
   }
 
   public IEnumerator DoFire() {
-    if (isReloading) { /* Cancel? Do Nothing? */ } else if (shootCooldown > 0 || pumpAmount > 0) { /* Do Nothing? */ } else if (!roundChambered) { PlaySound(emptySounds); } else {
+    if (isReloading) {
+      /* Cancel? Do Nothing? */
+    } else if (shootCooldown > 0 || pumpAmount > 0) {
+      /* Do Nothing? */
+    } else if (!roundChambered) {
+      PlaySound(emptySounds);
+    } else {
       // Actually shoot
       ammo -= 1;
       shellsToEject += 1;
@@ -127,7 +139,8 @@ public class GunScript : MonoBehaviour {
       Instantiate(bulletPrefab, muzzlePosition.position, muzzlePosition.rotation);
       Instantiate(muzzleFlashPrefabs[0], muzzlePosition.position, muzzlePosition.rotation);
       PlaySound(shootSounds);
-      onFire?.Invoke();
+
+      onFire?.Invoke(this);
 
       switch (ejectionType) {
         case EjectionType.Automatic:
