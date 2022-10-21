@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 
 public enum FireMode {
   // One bullet per trigger pull
@@ -112,6 +113,12 @@ public class GunScript : MonoBehaviour {
     float targetAngle = isReloading ? 50f : 0f;
     float angle = Mathf.MoveTowards(recoilTransform.localEulerAngles.z, targetAngle, 600f * Time.deltaTime);
     recoilTransform.localEulerAngles = new Vector3(0f, 0f, angle);
+
+    if (Input.GetKeyDown(KeyCode.F)) {
+      foreach (var flashlight in GetComponentsInChildren<Light2D>()) {
+        flashlight.enabled = !flashlight.enabled;
+      }
+    }
   }
 
   float CurrentRecoil() {

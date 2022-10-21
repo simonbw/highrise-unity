@@ -39,6 +39,7 @@ Graphics
  - Vision System
  - Post Processing
    - Bloom
+ - Normal Mapping
 
 Effects
  - Blood splatter

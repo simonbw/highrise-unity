@@ -34,6 +34,6 @@ public class Bullet : MonoBehaviour {
 
     transform.position = contact.point; // So that the trail is drawn to the right place
 
-    other?.OnBulletHit();
+    other?.OnBulletHit(this);
   }
 }

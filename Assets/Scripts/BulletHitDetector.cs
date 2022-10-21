@@ -8,9 +8,9 @@ public class BulletHitDetector : MonoBehaviour {
   public Gradient impactColor;
 
   [Tooltip("Called when hit by a bullet")]
-  public UnityEvent onHit;
+  public UnityEvent<Bullet> onHit;
 
-  public void OnBulletHit() {
-    onHit.Invoke();
+  public void OnBulletHit(Bullet bullet) {
+    onHit.Invoke(bullet);
   }
 }
