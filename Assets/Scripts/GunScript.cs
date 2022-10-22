@@ -74,6 +74,7 @@ public class GunScript : MonoBehaviour {
 
   [Header("Events")]
   public UnityEvent<GunScript> onFire;
+  public UnityEvent onSelect;
 
   // Private variables
   [SerializeField]

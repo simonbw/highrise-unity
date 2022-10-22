@@ -15,9 +15,10 @@ Guns
  - Pickups
  
 Player
- - Movement
+ - Shoving
  - Animations
  - Sounds
+ - Gun inventory system
 
 Interactions/Pickups
 
@@ -37,8 +38,6 @@ Environment
 
 Graphics
  - Vision System
- - Post Processing
-   - Bloom
  - Normal Mapping
 
 Effects

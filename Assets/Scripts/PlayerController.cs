@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-  public GunScript gun = null;
+  public GunScript currentWeapon = null;
 
   void OnEnable() {
     foreach (var gun in GetComponentsInChildren<GunScript>()) {
@@ -20,18 +21,33 @@ public class PlayerController : MonoBehaviour {
     CameraShake.Shake(gun.cameraShakeInfo);
   }
 
-  // TODO: Handle getting and losing guns
+  void Start() {
+    SelectWeapon(0);
+  }
 
   void Update() {
     // TODO: Is this the best way to be checking input?
     if (Input.GetButtonDown("Fire1")) {
-      gun?.Fire();
-    } else if (gun?.fireMode == FireMode.FullAuto && Input.GetButton("Fire1")) {
-      gun.Fire();
+      currentWeapon?.Fire();
+    } else if (currentWeapon?.fireMode == FireMode.FullAuto && Input.GetButton("Fire1")) {
+      currentWeapon.Fire();
     }
 
     if (Input.GetButtonDown("Reload")) {
-      gun?.Reload();
+      currentWeapon?.Reload();
+    }
+
+    if (Input.GetKeyDown(KeyCode.Alpha1)) {
+      SelectWeapon(0);
+    }
+    if (Input.GetKeyDown(KeyCode.Alpha2)) {
+      SelectWeapon(1);
+    }
+    if (Input.GetKeyDown(KeyCode.Alpha3)) {
+      SelectWeapon(2);
+    }
+    if (Input.GetKeyDown(KeyCode.Tab)) {
+      SelectNextWeapon();
     }
   }
 
@@ -52,11 +68,11 @@ public class PlayerController : MonoBehaviour {
     BodyPoser bodyPoser = GetComponent<BodyPoser>();
     bodyPoser.headAngle = headAngle;
 
-    if (gun) {
-      bodyPoser.leftHandPosition = transform.InverseTransformPoint(gun.GetLeftHandPosition());
-      bodyPoser.rightHandPosition = transform.InverseTransformPoint(gun.GetRightHandPosition());
-      bodyPoser.stanceAngle = gun.stanceAngle;
-      bodyPoser.stanceOffset = gun.stanceOffset;
+    if (currentWeapon) {
+      bodyPoser.leftHandPosition = transform.InverseTransformPoint(currentWeapon.GetLeftHandPosition());
+      bodyPoser.rightHandPosition = transform.InverseTransformPoint(currentWeapon.GetRightHandPosition());
+      bodyPoser.stanceAngle = currentWeapon.stanceAngle;
+      bodyPoser.stanceOffset = currentWeapon.stanceOffset;
     } else {
       // TODO: Empty hand better 
       bodyPoser.leftHandPosition = new Vector2(0f, 0f);
@@ -66,169 +82,31 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
+  // TODO: Handle Shoving
 
-  //   onTick(dt: number) {
-  //     const { body, weapon } = this.human;
-  //     [this.sprite.x, this.sprite.y] = body.position;
-  //     this.sprite.rotation = body.angle;
+  public void SelectWeapon(int weaponIndex = 0) {
+    var weapons = GetComponentsInChildren<GunScript>(includeInactive: true);
+    for (int i = 0; i < weapons.Length; i++) {
+      var weapon = weapons[i].gameObject;
+      weapon.SetActive(i == weaponIndex);
+    }
+    currentWeapon = weapons[weaponIndex];
+  }
 
-  //     this._stanceAngle = stepToward(
-  //       this._stanceAngle,
-  //       this.getTargetStanceAngle(),
-  //       dt * STANCE_ROTATE_SPEED
-  //     );
+  public void SelectNextWeapon() {
+    if (currentWeapon == null) {
+      SelectWeapon(0);
+    } else {
+      var weapons = GetComponentsInChildren<GunScript>(includeInactive: true);
+      var currentIndex = Array.IndexOf(weapons, currentWeapon);
+      if (currentIndex < 0) {
+        SelectWeapon(0);
+      } else {
+        SelectWeapon(currentIndex % weapons.Length);
+      }
+    }
+  }
 
-  //     const targetStanceOffset = this.getTargetStanceOffset();
-  //     this._stanceOffset[0] = stepToward(
-  //       this._stanceOffset[0],
-  //       targetStanceOffset[0],
-  //       dt * STANCE_ADJUST_SPEED
-  //     );
-  //     this._stanceOffset[1] = stepToward(
-  //       this._stanceOffset[1],
-  //       targetStanceOffset[1],
-  //       dt * STANCE_ADJUST_SPEED
-  //     );
-  //   }
-
-  //   onRender(dt: number) {
-  //     super.onRender(dt);
-
-  //     const weapon = this.human.weapon;
-  //     if (weapon && this.weaponSprite) {
-  //       const pushOffset = this.getPushOffset();
-  //       if (weapon instanceof MeleeWeapon) {
-  //         this.weaponSprite.visible = weapon.currentCooldown <= 0;
-  //         this.weaponSprite.position.set(
-  //           ...V(weapon.swing.restPosition).iadd([pushOffset, 0])
-  //         );
-  //       } else {
-  //         this.weaponSprite.position.set(
-  //           ...weapon.getCurrentHoldPosition().iadd([pushOffset, 0])
-  //         );
-  //         this.weaponSprite.rotation = weapon.getCurrentHoldAngle() + pushOffset;
-  //       }
-  //     }
-  //   }
-
-  //   getTargetStanceAngle(): number {
-  //     if (this.human.weapon instanceof Gun) {
-  //       return this.human.weapon.stats.stanceAngle;
-  //     } else {
-  //       return 0;
-  //     }
-  //   }
-
-  //   getPosition() {
-  //     return this.human.getPosition();
-  //   }
-
-  //   getAngle() {
-  //     return this.human.getDirection();
-  //   }
-
-  //   getTargetStanceOffset(): [number, number] {
-  //     if (this.human.weapon instanceof Gun) {
-  //       return this.human.weapon.stats.stanceOffset;
-  //     } else {
-  //       return [0, 0];
-  //     }
-  //   }
-
-  //   getStanceAngle() {
-  //     return this._stanceAngle;
-  //   }
-
-  //   getStanceOffset() {
-  //     return this._stanceOffset;
-  //   }
-
-  //   getRecoilOffset(gun: Gun): number {
-  //     return -0.125 * gun.getCurrentRecoilAmount() ** 1.5;
-  //   }
-
-  //   getHandPositions(): [V2d, V2d] {
-  //     const { weapon } = this.human;
-  //     const pushOffset = this.getPushOffset();
-  //     if (weapon) {
-  //       const [left, right] = weapon.getCurrentHandPositions();
-  //       return [left.iadd([pushOffset, 0]), right.iadd([pushOffset, 0])];
-  //     } else {
-  //       // Wave em in the air like you just don't care?
-  //       let x: number = 0.3 + pushOffset;
-  //       const y = Math.sin(this.game!.elapsedTime * 2) * 0.05;
-  //       return [V(x, -0.2 + y), V(x, 0.2 - y)];
-  //     }
-  //   }
-
-  //   getPushOffset(): number {
-  //     const pushPhase = this.human.pushAction.currentPhase?.name;
-  //     const t = smoothStep(this.human.pushAction.phasePercent);
-
-  //     switch (pushPhase) {
-  //       case undefined:
-  //         return 0;
-  //       case "windup":
-  //         return lerp(0, -0.2, t);
-  //       case "push":
-  //         return lerp(-0.2, 0.2, t);
-  //       case "winddown":
-  //         return lerp(0.2, 0, t);
-  //       default:
-  //         return 0;
-  //     }
-  //   }
-
-  //   async onGiveWeapon(weapon: Gun | MeleeWeapon) {
-  //     if (weapon instanceof Gun) {
-  //       const { textures, muzzleLength } = weapon.stats;
-  //       this.weaponSprite = Sprite.from(textures.holding);
-  //       this.weaponSprite.scale.set(GUN_SCALE);
-  //       this.weaponSprite.anchor.set(0.5, 0.5);
-  //       this.weaponSprite.position.set(...weapon.getCurrentHoldPosition());
-  //       this.sprite.addChild(this.weaponSprite);
-
-  //       if (weapon.stats.laserSightColor) {
-  //         this.laserSight = this.addChild(
-  //           new LaserSight(
-  //             () => this.getMuzzlePosition(),
-  //             () => weapon.getCurrentHoldAngle() + this.sprite.rotation,
-  //             undefined,
-  //             weapon.stats.laserSightColor
-  //           )
-  //         );
-  //       }
-  //     } else if (weapon instanceof MeleeWeapon) {
-  //       const { pivotPosition, textures, size } = weapon.stats;
-  //       const { restAngle, restPosition } = weapon.swing;
-
-  //       this.weaponSprite = Sprite.from(textures.hold);
-  //       this.weaponSprite.scale.set(size[1] / this.weaponSprite.height);
-  //       this.weaponSprite.anchor.set(...pivotPosition);
-  //       this.weaponSprite.rotation = Math.PI / 2 + restAngle;
-  //       this.weaponSprite.position.set(...restPosition);
-  //       this.sprite.addChild(this.weaponSprite);
-  //     }
-  //   }
-
-  //   getMuzzlePosition() {
-  //     const gun = this.human.weapon;
-  //     if (gun instanceof Gun) {
-  //       const localPosition = gun.getMuzzlePosition();
-  //       localPosition.angle += this.sprite.rotation;
-  //       return localPosition.iadd([this.sprite.x, this.sprite.y]);
-  //     }
-  //     return V(0, 0);
-  //   }
-
-  //   onDropWeapon() {
-  //     if (this.weaponSprite) {
-  //       this.sprite.removeChild(this.weaponSprite);
-  //       this.weaponSprite = undefined;
-  //     }
-  //     this.laserSight?.destroy();
-  //     this.laserSight = undefined;
-  //   }
 }
 
 
