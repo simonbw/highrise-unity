@@ -28,10 +28,10 @@ MonoBehaviour:
   - name: Additive
     maskTextureChannel: 0
     blendMode: 0
-  - name: Multiply with Mask
+  - name: Vision
     maskTextureChannel: 1
-    blendMode: 1
-  - name: Additive with Mask
+    blendMode: 2
+  - name: Vision
     maskTextureChannel: 1
     blendMode: 0
   m_UseDepthStencilBuffer: 1
