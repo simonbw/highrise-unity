@@ -11,6 +11,7 @@ public class PrefabSelector : QuickSelector<GameObject> {
 
   protected override void OnSelect(GameObject item) {
     Selection.activeGameObject = item;
+    AssetDatabase.OpenAsset(item);
   }
 
   protected override string GetButtonText(GameObject item) {

@@ -80,7 +80,7 @@ public abstract class QuickSelector<T> : EditorWindow {
       }
       var style = selected ? selectedItemStyle : normalItemStyle;
       if (GUILayout.Button(GetButtonText(item), style)) {
-        OpenPrefab(item);
+        SelectItem(item);
         return;
       }
       EditorGUILayout.EndVertical();
@@ -99,7 +99,7 @@ public abstract class QuickSelector<T> : EditorWindow {
           Repaint();
           break;
         case KeyCode.Return:
-          OpenPrefab(items[selectedIndex]);
+          SelectItem(items[selectedIndex]);
           return;
         case KeyCode.Escape:
           Close();
@@ -108,7 +108,7 @@ public abstract class QuickSelector<T> : EditorWindow {
     }
   }
 
-  void OpenPrefab(T item) {
+  void SelectItem(T item) {
     OnSelect(item);
     recentlyOpened.Remove(item);
     recentlyOpened.Insert(0, item);

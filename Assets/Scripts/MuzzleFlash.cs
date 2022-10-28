@@ -19,17 +19,29 @@ public class MuzzleFlash : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    var t = Mathf.Clamp01(timeLeft / lifespan);
+    if (timeLeft > 0) {
+      var t = Mathf.Clamp01(timeLeft / lifespan);
 
-    spotLight.intensity = Mathf.Pow(t, 2f);
+      spotLight.intensity = Mathf.Pow(t, 2f);
 
-    sprite.color = new Color(1f, 1f, 1f, Mathf.Sqrt(t));
-    var scale = 2f - Mathf.Pow(t, 2f);
-    sprite.transform.localScale.Set(scale, scale, scale);
+      sprite.color = new Color(1f, 1f, 1f, Mathf.Sqrt(t));
 
-    timeLeft -= Time.deltaTime;
-    if (timeLeft <= 0) {
-      Destroy(gameObject);
+      var scale = 2f - Mathf.Pow(t, 2f);
+      sprite.transform.localScale.Set(scale, scale, scale);
+
+      timeLeft -= Time.deltaTime;
+
+      // Called once, when we run out of time
+      if (timeLeft <= 0) {
+        Destroy(sprite);
+        Destroy(spriteLight);
+        Destroy(spotLight);
+      }
+    } else {
+      var particleSystems = GetComponentsInChildren<ParticleSystem>();
+      if (particleSystems.Length == 0) {
+        Destroy(gameObject);
+      }
     }
   }
 }

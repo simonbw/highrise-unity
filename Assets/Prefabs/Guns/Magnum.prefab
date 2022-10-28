@@ -105,6 +105,21 @@ MonoBehaviour:
   - {fileID: 4290598344502494115, guid: 4bf47bc17db7e43e4a2f8b030eefe3be, type: 3}
   audioSource: {fileID: 2591560688860162365}
   recoilTransform: {fileID: 6945801999686777492}
+  sounds:
+    Shoot:
+    - {fileID: 8300000, guid: 8762713c188f4491297a212d2251d625, type: 3}
+    Empty:
+    - {fileID: 8300000, guid: c4585106f3a544496a5e2849abcbaa57, type: 3}
+    ReloadStart:
+    - {fileID: 8300000, guid: 0ae987956dd1a47f288413442d9ad280, type: 3}
+    ReloadInsert:
+    - {fileID: 8300000, guid: 6b9899831dc3f4bb39c0f075cca7768e, type: 3}
+    - {fileID: 8300000, guid: 82d973727ef974a8e8f63efe8134fc42, type: 3}
+    - {fileID: 8300000, guid: abc2ea2f13c25424695fe8a0e7adab8c, type: 3}
+    ReloadFinish:
+    - {fileID: 8300000, guid: c9aa8b913e6744d50a1e05af561ad0c4, type: 3}
+    Pump: []
+    Pickup: []
   shootSounds:
   - {fileID: 8300000, guid: 8762713c188f4491297a212d2251d625, type: 3}
   emptySounds:
@@ -134,21 +149,16 @@ MonoBehaviour:
   reloadStyle: 0
   ejectionType: 2
   fireMode: 0
+  cameraShakeInfo:
+    amount: 0.5
+    numberOfShakes: 1
+    timePerShake: 1
   onFire:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 9ba5bddb89cc24ad7a6bcdae22fcfc8f, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Scripts
-        m_MethodName: Invoke
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  onSelect:
+    m_PersistentCalls:
+      m_Calls: []
   ammo: 0
   shellsToEject: 0
   isReloading: 0

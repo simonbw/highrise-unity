@@ -2,9 +2,12 @@ Shader "Sprite Lit With Vision"
 {
     Properties
     {
+        [Header(Textures)] [Space]
         _MainTex("Diffuse", 2D) = "white" {}
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
+
+        [Header(Options)] [Space] [KeywordEnum(Default, Add)] _BlendMode("Blend mode", Float) = 0
 
         // Legacy properties. They're here so that materials using this shader can gracefully fallback to the legacy sprite shader.
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
@@ -18,7 +21,7 @@ Shader "Sprite Lit With Vision"
     {
         Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
 
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend SrcAlpha OneMinusSrcAlpha
         Cull Off
         ZWrite Off
 
@@ -101,11 +104,16 @@ Shader "Sprite Lit With Vision"
                 return o;
             }
 
-            #include "CombinedShapeLightShared.hlsl"
+            #include "./Include/CombinedShapeLightShared.hlsl"
 
             half4 CombinedShapeLightFragment(Varyings i) : SV_Target
             {
-                const half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                #if defined(_BLENDMODE_ADD)
+                    const half4 main = i.color.a * i.color + SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                #else
+                    const half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                #endif
+
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv);
                 SurfaceData2D surfaceData;
                 InputData2D inputData;
@@ -233,7 +241,11 @@ Shader "Sprite Lit With Vision"
 
             float4 UnlitFragment(Varyings i) : SV_Target
             {
-                float4 mainTex = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                #if defined(_BLENDMODE_ADD)
+                    const half4 mainTex = i.color.a * i.color + SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                #else
+                    const half4 mainTex = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                #endif
 
                 #if defined(DEBUG_DISPLAY)
                 SurfaceData2D surfaceData;

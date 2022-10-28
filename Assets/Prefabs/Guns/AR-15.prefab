@@ -46,27 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e706b3c5103a49ff97871783f4d9425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoilTransform: {fileID: 6945801999686777492}
   bulletPrefab: {fileID: 9040789546361936408, guid: f75e41eb03b9a49a1b50bf6d644f16fa, type: 3}
   casingPrefab: {fileID: 5819666491551977110, guid: f27fdbe0f90f54c589fb0dafd0f78708, type: 3}
   muzzleFlashPrefabs:
   - {fileID: 4290598344502494115, guid: 4bf47bc17db7e43e4a2f8b030eefe3be, type: 3}
   audioSource: {fileID: 2591560688860162365}
-  recoilTransform: {fileID: 6945801999686777492}
-  shootSounds:
-  - {fileID: 8300000, guid: cfb44f6211935452fbdedfe024e5ff04, type: 3}
-  - {fileID: 8300000, guid: e468039f0da954845aa745ca4d5c497c, type: 3}
-  - {fileID: 8300000, guid: 6268961e387fb43ce941a9e24676b12d, type: 3}
-  emptySounds:
-  - {fileID: 8300000, guid: 87752b38e1c844fcfb15cd6a3274df95, type: 3}
-  reloadStartSounds:
-  - {fileID: 8300000, guid: 0edeb7e2791a8453b893d727e0944808, type: 3}
-  reloadInsertSounds:
-  - {fileID: 8300000, guid: f8be48953e3fd462ba29e2db6105e959, type: 3}
-  reloadFinishSounds: []
-  pumpSounds:
-  - {fileID: 8300000, guid: b3144b443e519450b886a665f27d07ff, type: 3}
-  pickupSounds:
-  - {fileID: 8300000, guid: b3144b443e519450b886a665f27d07ff, type: 3}
+  sounds:
+    Shoot:
+    - {fileID: 8300000, guid: cfb44f6211935452fbdedfe024e5ff04, type: 3}
+    - {fileID: 8300000, guid: e468039f0da954845aa745ca4d5c497c, type: 3}
+    - {fileID: 8300000, guid: 6268961e387fb43ce941a9e24676b12d, type: 3}
+    Empty:
+    - {fileID: 8300000, guid: 87752b38e1c844fcfb15cd6a3274df95, type: 3}
+    ReloadStart:
+    - {fileID: 8300000, guid: 0edeb7e2791a8453b893d727e0944808, type: 3}
+    ReloadInsert:
+    - {fileID: 8300000, guid: f8be48953e3fd462ba29e2db6105e959, type: 3}
+    ReloadFinish: []
+    Pump:
+    - {fileID: 8300000, guid: b3144b443e519450b886a665f27d07ff, type: 3}
+    Pickup:
+    - {fileID: 8300000, guid: b3144b443e519450b886a665f27d07ff, type: 3}
   muzzlePosition: {fileID: 6357867495450111741}
   ejectionPosition: {fileID: 2841105156081470113}
   leftHandPosition: {fileID: 4369105727626031149}
@@ -82,6 +83,10 @@ MonoBehaviour:
   reloadStyle: 1
   ejectionType: 0
   fireMode: 0
+  cameraShakeInfo:
+    amount: 0.5
+    numberOfShakes: 1
+    timePerShake: 1
   onFire:
     m_PersistentCalls:
       m_Calls:
@@ -97,6 +102,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onSelect:
+    m_PersistentCalls:
+      m_Calls: []
   ammo: 0
   shellsToEject: 0
   isReloading: 0

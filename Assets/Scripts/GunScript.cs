@@ -26,24 +26,29 @@ public enum EjectionType {
   Reload,
 }
 
+[System.Serializable]
+public struct GunSounds {
+  public AudioClip[] Shoot;
+  public AudioClip[] Empty;
+  public AudioClip[] ReloadStart;
+  public AudioClip[] ReloadInsert;
+  public AudioClip[] ReloadFinish;
+  public AudioClip[] Pump;
+  public AudioClip[] Pickup;
+}
+
 public class GunScript : MonoBehaviour {
+  [Header("Connections")]
+  public Transform recoilTransform;
+
   [Header("Prefabs")]
   public GameObject bulletPrefab;
   public GameObject casingPrefab;
   public GameObject[] muzzleFlashPrefabs;
 
-  [Header("Connections")]
-  public AudioSource audioSource;
-  public Transform recoilTransform;
-
   [Header("Audio")]
-  public AudioClip[] shootSounds;
-  public AudioClip[] emptySounds;
-  public AudioClip[] reloadStartSounds;
-  public AudioClip[] reloadInsertSounds;
-  public AudioClip[] reloadFinishSounds;
-  public AudioClip[] pumpSounds;
-  public AudioClip[] pickupSounds;
+  public AudioSource audioSource;
+  public GunSounds sounds;
 
   [Header("Positions")]
   public Transform muzzlePosition;
@@ -136,7 +141,7 @@ public class GunScript : MonoBehaviour {
     } else if (shootCooldown > 0 || pumpAmount > 0) {
       /* Do Nothing? */
     } else if (!roundChambered) {
-      PlaySound(emptySounds);
+      PlaySound(sounds.Empty);
     } else {
       // Actually shoot
       ammo -= 1;
@@ -146,7 +151,7 @@ public class GunScript : MonoBehaviour {
 
       Instantiate(bulletPrefab, muzzlePosition.position, muzzlePosition.rotation);
       Instantiate(muzzleFlashPrefabs[0], muzzlePosition.position, muzzlePosition.rotation);
-      PlaySound(shootSounds);
+      PlaySound(sounds.Shoot);
 
       onFire?.Invoke(this);
 
@@ -179,7 +184,7 @@ public class GunScript : MonoBehaviour {
   public IEnumerator DoPump() {
     pumpAmount = 0f;
 
-    PlaySound(pumpSounds);
+    PlaySound(sounds.Pump);
 
     float duration = pumpDuration * 0.4f;
 
@@ -219,7 +224,7 @@ public class GunScript : MonoBehaviour {
   private IEnumerator DoReload() {
     isReloading = true;
 
-    PlaySound(reloadStartSounds);
+    PlaySound(sounds.ReloadStart);
     yield return new WaitForSeconds(reloadStartDuration);
 
     // Ejection
@@ -236,14 +241,14 @@ public class GunScript : MonoBehaviour {
       ammo = ammoCapacity;
     } else {
       while (ammo < ammoCapacity) {
-        PlaySound(reloadInsertSounds);
+        PlaySound(sounds.ReloadInsert);
         yield return new WaitForSeconds(reloadInsertDuration);
         ammo += 1;
       }
     }
 
     // Finish
-    PlaySound(reloadFinishSounds);
+    PlaySound(sounds.ReloadFinish);
     yield return new WaitForSeconds(reloadFinishDuration);
 
     isReloading = false;
