@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4746bc83af53a4fa59e8d8e29ff4e08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10000
   dropPrefab: {fileID: 4228921553107975180, guid: c96ca2bad439b40a690ecdcbb17a3e11, type: 3}
   splatterPrefab: {fileID: 8782961586633054521, guid: 143fb015eff06433ebb4143753cb66dc, type: 3}
   onDie:
