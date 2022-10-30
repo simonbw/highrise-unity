@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4462262455514121344}
   - component: {fileID: 1668701068840502477}
   - component: {fileID: 8820899352514675227}
+  - component: {fileID: 4518412778304828498}
   m_Layer: 6
   m_Name: Vending Machine v1
   m_TagString: Untagged
@@ -38,7 +39,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2392221467481173649
 SpriteRenderer:
@@ -148,10 +149,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4462262455514121344}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 8820899352514675227}
+        m_TargetAssemblyTypeName: LightFlicker, Scripts
+        m_MethodName: Flicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -507,7 +508,7 @@ MonoBehaviour:
   - {x: 0.97149193, y: -0.9699812, z: 0}
   m_ShapePathHash: 1730033807
   m_Mesh: {fileID: 0}
-  m_InstanceId: -27514
+  m_InstanceId: 107194
 --- !u!114 &8820899352514675227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,3 +521,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adaa540e4cbc64406afb660f01781675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  light: {fileID: 4462262455514121344}
+  hitsLeft: 3
+  OnFlicker:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4518412778304828498}
+        m_TargetAssemblyTypeName: AudioRing, Scripts
+        m_MethodName: Play
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4518412778304828498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395812831047601512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfbeb712b36347edac592e9063fa283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: eefbde432ef684842a4ee5416a3e2bdb, type: 3}
+  - {fileID: 8300000, guid: 66fb194fa3e0f41d48c16c9cfa875ca8, type: 3}
+  - {fileID: 8300000, guid: b21a4acfd1c804f5fb767f61d39ba100, type: 3}
+  - {fileID: 8300000, guid: 8f914262bacf54d56a9dc5e220c9c31f, type: 3}
+  - {fileID: 8300000, guid: 29b49cc7bd0cc4f9f99da3358c200d9e, type: 3}
+  - {fileID: 8300000, guid: 652844d2919f9443aa864851eee8c1cb, type: 3}
+  - {fileID: 8300000, guid: 20be6fec0a662401e8fbf8e1fcda20f8, type: 3}
+  - {fileID: 8300000, guid: 20be6fec0a662401e8fbf8e1fcda20f8, type: 3}
+  - {fileID: 8300000, guid: 7646c7a83609a42c8a3bf65206750384, type: 3}
+  - {fileID: 8300000, guid: 1c59f5916ee77487481a3716c8dbe858, type: 3}
+  - {fileID: 8300000, guid: 0c9db60fb93654a80a4bd301e038eaa9, type: 3}
+  - {fileID: 8300000, guid: 8f6b9fe41430343999891a88562d6ef6, type: 3}
+  - {fileID: 8300000, guid: 16f0ed1d123a043678874679d25445b6, type: 3}
+  - {fileID: 8300000, guid: f82d4b9dd56d54011b0c8360ccea623c, type: 3}
+  - {fileID: 8300000, guid: c1e45e3f53a6347d69515a73e735c459, type: 3}
+  - {fileID: 8300000, guid: ef23af923bc2a42d589314c8b19a3f0c, type: 3}
+  - {fileID: 8300000, guid: 8395dc57a48674023aa089551a5fb58a, type: 3}
+  - {fileID: 8300000, guid: 11dcaf8982a7b4209a8ee4de0b8dacc7, type: 3}
+  - {fileID: 8300000, guid: 1776964bc092d41789e332e42d65ea0f, type: 3}
+  - {fileID: 8300000, guid: a73dd85f06c6e40978d2932023fb777e, type: 3}
+  - {fileID: 8300000, guid: fb9081be31fc043c1b8d3ea4ab865523, type: 3}
+  - {fileID: 8300000, guid: c3532c2ff2f6649f9a24922d2d429491, type: 3}

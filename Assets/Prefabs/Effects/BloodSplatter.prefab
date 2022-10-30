@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1858111255561409571}
   - component: {fileID: -455577011317131002}
   - component: {fileID: -3228989617059189399}
-  - component: {fileID: 7480451418499235409}
   - component: {fileID: 3695581454175394507}
   m_Layer: 8
   m_Name: BloodSplatter
@@ -235,21 +234,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!111 &7480451418499235409
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8782961586633054521}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 5a53909362ce3451a8a699572fee2195, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &3695581454175394507
 MonoBehaviour:
   m_ObjectHideFlags: 0
